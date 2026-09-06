@@ -1,4 +1,4 @@
 def test_device_connection(serial_connection):
-    serial_connection.write(b'PING')
+    serial_connection.write(b'PING\n')
     response = serial_connection.readline()
     assert b'PONG' in response

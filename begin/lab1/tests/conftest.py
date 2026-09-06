@@ -1,9 +1,15 @@
 import pytest
 import serial
 
+PORT = "/dev/ttyUSB0"
+BAUDRATE = 115200
+TIMEOUT = 1
 
 @pytest.fixture(scope="session")
 def serial_connection():
-    device_serial = serial.Serial(port="/dev/ttyUSB0", baudrate=115200)
-    yield device_serial
-    device_serial.close()
+    try:
+        with serial.Serial(port=PORT, baudrate=BAUDRATE, timeout=TIMEOUT) as ser:
+            yield ser
+    except serial.SerialException as e:
+        pytest.fail(f"ESP32 is unavailable on {PORT}, error is {e}")    
+    ser.close()
