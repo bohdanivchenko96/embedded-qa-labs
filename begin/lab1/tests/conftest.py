@@ -11,5 +11,4 @@ def serial_connection():
         with serial.Serial(port=PORT, baudrate=BAUDRATE, timeout=TIMEOUT) as ser:
             yield ser
     except serial.SerialException as e:
-        pytest.fail(f"ESP32 is unavailable on {PORT}, error is {e}")    
-    ser.close()
+        pytest.fail(f"ESP32 is unavailable on {PORT}, error is {e}")
